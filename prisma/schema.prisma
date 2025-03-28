@@ -7,8 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Admins {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  password  String
+  role      Role
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Regions {
-  id      Int       @id @default(autoincrement())
+  id      String    @id @default(uuid())
   name    String
   centers Centers[]
 }
@@ -22,12 +32,72 @@ model Centers {
   image       String
   description String
   document    String
-  status      StatusCenters @default(PENDING)
+  status      StatusCenters @default(INACTIVE)
   location    String
-  region_id   Int?
-  region      Regions?      @relation(fields: [region_id], references: [id])
+  region_id   String
+  region      Regions       @relation(fields: [region_id], references: [id], onDelete: NoAction)
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
+  Teachers    Teachers[]
+  Groups      Groups[]
+  Students    Students[]
+}
+
+model Teachers {
+  id          String        @id @default(uuid())
+  first_name  String
+  last_name   String
+  image       String
+  email       String
+  phone       String
+  password    String
+  bio         String
+  passport    String
+  sertificate String
+  status      StatusCenters @default(PENDING)
+  center_id   String
+  Center      Centers       @relation(fields: [center_id], references: [id], onDelete: Cascade)
+  updatedAt   DateTime      @updatedAt
+  createdAt   DateTime      @default(now())
+  TechGroups  Groups[]      @relation(name: "Teacher")
+  CheckGroups Groups[]      @relation(name: "Checker")
+}
+
+model Groups {
+  id         String     @id @default(uuid())
+  name       String
+  start_time DateTime
+  end_time   DateTime
+  avg_score  Float
+  teacher_id String
+  checker_id String
+  center_id  String
+  Teacher    Teachers   @relation(name: "Teacher", fields: [teacher_id], references: [id])
+  Checker    Teachers   @relation(name: "Checker", fields: [checker_id], references: [id])
+  Center     Centers    @relation(fields: [center_id], references: [id], onDelete: Cascade)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  Students   Students[]
+}
+
+model Students {
+  id         String   @id @default(uuid())
+  first_name String
+  last_name  String
+  image      String
+  phone      String
+  password   String
+  center_id  String
+  group_id   String
+  Center     Centers  @relation(fields: [center_id], references: [id], onDelete: Cascade)
+  Group      Groups   @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  SUPER_ADMIN
 }
 
 enum StatusCenters {
