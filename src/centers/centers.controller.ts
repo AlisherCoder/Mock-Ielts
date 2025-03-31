@@ -8,8 +8,8 @@ export class CentersController {
   constructor(private readonly centersService: CentersService) {}
 
   @Post()
-  create(@Body() createCenterDto: CreateCenterDto) {
-    return this.centersService.create(createCenterDto);
+  register(@Body() createCenterDto: CreateCenterDto) {
+    return this.centersService.register(createCenterDto);
   }
 
   @Get()
@@ -19,16 +19,16 @@ export class CentersController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.centersService.findOne(+id);
+    return this.centersService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCenterDto: UpdateCenterDto) {
-    return this.centersService.update(+id, updateCenterDto);
+    return this.centersService.update(id, updateCenterDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.centersService.remove(+id);
+    return this.centersService.remove(id);
   }
 }

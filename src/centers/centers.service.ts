@@ -4,7 +4,7 @@ import { UpdateCenterDto } from './dto/update-center.dto';
 
 @Injectable()
 export class CentersService {
-  create(createCenterDto: CreateCenterDto) {
+  register(createCenterDto: CreateCenterDto) {
     return 'This action adds a new center';
   }
 
@@ -12,15 +12,15 @@ export class CentersService {
     return `This action returns all centers`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} center`;
   }
 
-  update(id: number, updateCenterDto: UpdateCenterDto) {
+  update(id: string, updateCenterDto: UpdateCenterDto) {
     return `This action updates a #${id} center`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} center`;
   }
 }
