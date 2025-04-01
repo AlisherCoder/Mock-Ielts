@@ -7,7 +7,7 @@ export class CreateCenterDto {
   @IsString()
   name: string;
 
-  @ApiProperty({ example: 'registon@gmail.com' })
+  @ApiProperty({ example: 'alishersharipov670@gmail.com' })
   @IsNotEmpty()
   @IsEmail()
   email: string;
@@ -42,7 +42,7 @@ export class CreateCenterDto {
   @IsString()
   location: string;
 
-  @ApiProperty({ example: 'region id' })
+  @ApiProperty({ example: '0552ec15-a82a-4319-a234-cd02dd25598e' })
   @IsNotEmpty()
   @IsString()
   region_id: string;

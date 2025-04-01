@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "Centers" ADD COLUMN     "role" TEXT NOT NULL DEFAULT 'CENTER';
+
+-- AlterTable
+ALTER TABLE "Students" ADD COLUMN     "role" TEXT NOT NULL DEFAULT 'STUDENT';
+
+-- AlterTable
+ALTER TABLE "Teachers" ADD COLUMN     "role" TEXT NOT NULL DEFAULT 'TEACHER';

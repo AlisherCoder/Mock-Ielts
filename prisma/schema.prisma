@@ -10,7 +10,7 @@ datasource db {
 model Admins {
   id        String   @id @default(uuid())
   name      String
-  email     String
+  email     String   @unique
   password  String
   role      Role
   createdAt DateTime @default(now())
@@ -19,14 +19,14 @@ model Admins {
 
 model Regions {
   id      String    @id @default(uuid())
-  name    String
+  name    String    @unique
   centers Centers[]
 }
 
 model Centers {
   id          String        @id @default(uuid())
   name        String
-  email       String
+  email       String        @unique
   phone       String
   password    String
   image       String
@@ -34,6 +34,7 @@ model Centers {
   document    String
   status      StatusCenters @default(INACTIVE)
   location    String
+  role        String        @default("CENTER")
   region_id   String
   region      Regions       @relation(fields: [region_id], references: [id], onDelete: NoAction)
   createdAt   DateTime      @default(now())
@@ -48,13 +49,14 @@ model Teachers {
   first_name  String
   last_name   String
   image       String
-  email       String
+  email       String        @unique
   phone       String
   password    String
   bio         String
   passport    String
   sertificate String
   status      StatusCenters @default(PENDING)
+  role        String        @default("TEACHER")
   center_id   String
   Center      Centers       @relation(fields: [center_id], references: [id], onDelete: Cascade)
   updatedAt   DateTime      @updatedAt
@@ -85,8 +87,9 @@ model Students {
   first_name String
   last_name  String
   image      String
-  phone      String
+  phone      String   @unique
   password   String
+  role       String   @default("STUDENT")
   center_id  String
   group_id   String
   Center     Centers  @relation(fields: [center_id], references: [id], onDelete: Cascade)

@@ -13,7 +13,7 @@ export class RegionsService {
 
   async create(createRegionDto: CreateRegionDto) {
     try {
-      let region = await this.prisma.regions.findFirst({
+      let region = await this.prisma.regions.findUnique({
         where: {
           name: createRegionDto.name,
         },
@@ -74,7 +74,7 @@ export class RegionsService {
         return new BadRequestException('Not found region');
       }
 
-      let existsregion = await this.prisma.regions.findFirst({
+      let existsregion = await this.prisma.regions.findUnique({
         where: {
           name: updateRegionDto.name,
         },
