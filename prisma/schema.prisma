@@ -45,24 +45,24 @@ model Centers {
 }
 
 model Teachers {
-  id          String        @id @default(uuid())
+  id          String         @id @default(uuid())
   first_name  String
   last_name   String
   image       String
-  email       String        @unique
+  email       String         @unique
   phone       String
   password    String
   bio         String
   passport    String
   sertificate String
-  status      StatusCenters @default(PENDING)
-  role        String        @default("TEACHER")
+  status      StatusTeachers @default(ACTIVE)
+  role        String         @default("TEACHER")
   center_id   String
-  Center      Centers       @relation(fields: [center_id], references: [id], onDelete: Cascade)
-  updatedAt   DateTime      @updatedAt
-  createdAt   DateTime      @default(now())
-  TechGroups  Groups[]      @relation(name: "Teacher")
-  CheckGroups Groups[]      @relation(name: "Checker")
+  Center      Centers        @relation(fields: [center_id], references: [id], onDelete: Cascade)
+  updatedAt   DateTime       @updatedAt
+  createdAt   DateTime       @default(now())
+  TechGroups  Groups[]       @relation(name: "Teacher")
+  CheckGroups Groups[]       @relation(name: "Checker")
 }
 
 model Groups {
@@ -107,4 +107,9 @@ enum StatusCenters {
   ACTIVE
   INACTIVE
   PENDING
+}
+
+enum StatusTeachers {
+  ACTIVE
+  INACTIVE
 }

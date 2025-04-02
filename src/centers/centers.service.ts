@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import {
   ActivateCenterDto,
+  ActivateDto,
   LoginCenterDto,
   ResetPasswordDto,
   SendOtpDto,
@@ -186,6 +187,60 @@ export class CentersService {
       if (!data.length) {
         return new NotFoundException('Not found centers');
       }
+
+      return { data };
+    } catch (error) {
+      return new BadRequestException(error.message);
+    }
+  }
+
+  async findPending() {
+    try {
+      let data = await this.prisma.centers.findMany({
+        where: { status: 'PENDING' },
+      });
+
+      if (!data.length) {
+        return new NotFoundException('Not found centers');
+      }
+
+      return { data };
+    } catch (error) {
+      return new BadRequestException(error.message);
+    }
+  }
+
+  async findInActive() {
+    try {
+      let data = await this.prisma.centers.findMany({
+        where: { status: 'INACTIVE' },
+      });
+
+      if (!data.length) {
+        return new NotFoundException('Not found centers');
+      }
+
+      return { data };
+    } catch (error) {
+      return new BadRequestException(error.message);
+    }
+  }
+
+  async activateCenter(activateDto: ActivateDto) {
+    let { center_id } = activateDto;
+    try {
+      let center = await this.prisma.centers.findUnique({
+        where: { id: center_id },
+      });
+
+      if (!center) {
+        return new NotFoundException('Not found centers');
+      }
+
+      let data = await this.prisma.centers.update({
+        where: { id: center_id },
+        data: { status: 'ACTIVE' },
+      });
 
       return { data };
     } catch (error) {

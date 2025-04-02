@@ -8,5 +8,6 @@ import { MailModule } from 'src/mail/mail.module';
   imports: [MailModule, JwtModule.register({ global: true })],
   controllers: [CentersController],
   providers: [CentersService],
+  exports: [CentersService],
 })
 export class CentersModule {}

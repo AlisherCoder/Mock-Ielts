@@ -55,3 +55,10 @@ export class ResetPasswordDto {
   @IsString()
   new_Password: string;
 }
+
+export class ActivateDto {
+  @ApiProperty({ example: 'center id' })
+  @IsNotEmpty()
+  @IsString()
+  center_id: string;
+}

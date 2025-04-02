@@ -14,6 +14,7 @@ import { CreateCenterDto } from './dto/create-center.dto';
 import { UpdateCenterDto } from './dto/update-center.dto';
 import {
   ActivateCenterDto,
+  ActivateDto,
   LoginCenterDto,
   RefreshDto,
   ResetPasswordDto,
@@ -39,7 +40,7 @@ export class CentersController {
     return this.centersService.login(loginCenterDto);
   }
 
-  @Post('activate')
+  @Post('verify')
   activate(@Body() activateCenterDto: ActivateCenterDto) {
     return this.centersService.activate(activateCenterDto);
   }
@@ -60,9 +61,24 @@ export class CentersController {
     return this.centersService.resetPassword(resetPasswordDto);
   }
 
+  @Post('activate-center')
+  activateCenter(@Body() activateDto: ActivateDto) {
+    return this.centersService.activateCenter(activateDto);
+  }
+
   @Get()
   findAll() {
     return this.centersService.findAll();
+  }
+
+  @Get('pending')
+  findPending() {
+    return this.centersService.findPending();
+  }
+
+  @Get('inactive')
+  findInActive() {
+    return this.centersService.findInActive();
   }
 
   @Get(':id')
