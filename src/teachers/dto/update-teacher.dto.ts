@@ -22,6 +22,11 @@ export class UpdateTeacherDto {
   @IsString()
   phone?: string;
 
+  @ApiProperty({ example: '1234' })
+  @IsNotEmpty()
+  @IsString()
+  password: string;
+
   @ApiProperty({ example: 'Teacher' })
   @IsNotEmpty()
   @IsString()

@@ -70,7 +70,7 @@ model Groups {
   name       String
   start_time DateTime
   end_time   DateTime
-  avg_score  Float
+  avg_score  Float      @default(0)
   teacher_id String
   checker_id String
   center_id  String

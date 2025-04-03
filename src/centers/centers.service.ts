@@ -90,12 +90,12 @@ export class CentersService {
 
       let accessToken = this.genAccessToken({
         id: center.id,
-        status: center.status,
+        role: center.role,
       });
 
       let refreshToken = this.genRefreshToken({
         id: center.id,
-        status: center.status,
+        role: center.role,
       });
 
       return { accessToken, refreshToken };
@@ -145,11 +145,11 @@ export class CentersService {
   }
 
   async refreshToken(req: Request) {
-    let center = req['user'];
+    let user = req['user'];
     try {
       let accessToken = this.genAccessToken({
-        id: center.id,
-        status: center.status,
+        id: user.id,
+        role: user.role,
       });
 
       return { accessToken };
@@ -173,6 +173,18 @@ export class CentersService {
       });
 
       return { data: 'Your password updated' };
+    } catch (error) {
+      return new BadRequestException(error.message);
+    }
+  }
+
+  async getMydata(req: Request) {
+    let center = req['user'];
+    try {
+      let data = await this.prisma.centers.findUnique({
+        where: { id: center.id },
+      });
+      return { data };
     } catch (error) {
       return new BadRequestException(error.message);
     }

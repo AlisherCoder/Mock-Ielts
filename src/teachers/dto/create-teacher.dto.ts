@@ -47,3 +47,15 @@ export class CreateTeacherDto {
   @IsString()
   sertificate: string;
 }
+
+export class LoginTeacherDto {
+  @ApiProperty({ example: 'john@gmail.com' })
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @ApiProperty({ example: '1234' })
+  @IsNotEmpty()
+  @IsString()
+  password: string;
+}

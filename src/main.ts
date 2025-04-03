@@ -19,7 +19,7 @@ async function bootstrap() {
     .setTitle('Mock ielts example')
     .setDescription('The mock ielts API description')
     .setVersion('1.0')
-    .addSecurityRequirements('Bearer', ['Bearer'])
+    .addSecurityRequirements('bearer', ['bearer'])
     .addBearerAuth()
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);

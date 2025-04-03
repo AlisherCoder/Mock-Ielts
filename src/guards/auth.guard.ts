@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     let request: Request = context.switchToHttp().getRequest();
     let token = request.headers.authorization?.split(' ')[1];
-
+ 
     if (!token) {
       throw new UnauthorizedException('Unauthorized');
     }

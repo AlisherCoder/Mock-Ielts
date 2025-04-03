@@ -25,7 +25,9 @@ import { AuthGuard } from 'src/guards/auth.guard';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { Role, Roles } from 'src/guards/roles.decorator';
 import { RefreshGuard } from 'src/guards/refresh.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('centers')
 export class CentersController {
   constructor(private readonly centersService: CentersService) {}
@@ -64,6 +66,12 @@ export class CentersController {
   @Post('activate-center')
   activateCenter(@Body() activateDto: ActivateDto) {
     return this.centersService.activateCenter(activateDto);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('mydata')
+  getMydata(@Req() req: Request) {
+    return this.centersService.getMydata(req);
   }
 
   @Get()
